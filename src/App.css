@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border-radius: 0;
 }
 
 :root {
@@ -24,17 +25,20 @@ body {
   color: var(--text-light);
   overflow-x: hidden;
   line-height: 1.6;
+  border-radius: 0;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+  border-radius: 0;
 }
 
 .app {
   position: relative;
   width: 100%;
   background: var(--black);
+  border-radius: 0;
 }
 
 /* ============================================

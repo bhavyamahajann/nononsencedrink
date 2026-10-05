@@ -317,30 +317,70 @@
   font-weight: 500;
 }
 
-/* ============ RESPONSIVE ============ */
+/* ============ RESPONSIVE (mobile / tablet) ============ */
 @media (max-width: 900px) {
   .fl-stage {
-    --can-h: 46vh;
-    --gap: 0.75rem;
-    --W: 94vw;
+    --can-h: 54vh;                  /* can ki height (mobile) - bada/chhota karna ho to yahi badlo */
+    --gap: 0.5rem;
+    --W: 96vw;
+  }
+
+  .fl-marquee {
+    top: 2vh;
+  }
+
+  .fl-marquee-item {
+    font-size: clamp(1.5rem, 6vw, 2.4rem);
+    letter-spacing: 0.1em;
+  }
+
+  /* cards: neeche ka bada hissa colored */
+  .fl-cols {
+    bottom: 2vh;
+    height: 62vh;
+  }
+
+  .fl-col::before,
+  .fl-col::after {
+    top: 30%;                       /* card upar se thoda kam khali, can ke neeche ka hissa dhakta hai */
+    border-radius: 16px;
+  }
+
+  .fl-info {
+    height: 9vh;
+    min-height: 60px;
+    padding: 0 0.25rem;
   }
 
   .fl-title {
-    font-size: 0.75rem;
+    font-size: clamp(0.7rem, 3vw, 0.95rem);
     letter-spacing: 0.02em;
+    margin-bottom: 0.2rem;
   }
 
   .fl-subtitle {
-    font-size: 0.8rem;
+    font-size: clamp(0.6rem, 2.6vw, 0.8rem);
+    letter-spacing: 0.02em;
   }
 
+  /* can: size --can-h se hi chalta hai (width formula desktop jaisi) */
   .fl-can {
-    top: 38%;
+    top: 50%;                       /* can naam se upar rahe; overlap ho to 46%, bahut upar ho to 54% */
+  }
+
+  .fl-shadow {
+    width: 70px;
+    height: 12px;
+  }
+
+  /* video: text neeche hai, isliye gradient neeche se */
+  .fl-videos::after {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
   }
 
   .fl-content {
-    left: 1.5rem;
-    right: 1.5rem;
+    left: 1.25rem;
+    right: 1.25rem;
     top: auto;
     bottom: 2rem;
     width: auto;
@@ -351,9 +391,55 @@
     transform: translate(0, 0);
   }
 
+  .fl-tagline {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .fl-content-title {
+    font-size: clamp(1.8rem, 8vw, 2.6rem);
+    margin-bottom: 0.7rem;
+  }
+
   .fl-text {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
     margin-bottom: 1rem;
+  }
+
+  .fl-tags {
+    gap: 0.4rem;
+  }
+
+  .fl-tag {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fl-stage {
+    --can-h: 50vh;                  /* chhote phone ke liye thoda aur chhota can */
+    --gap: 0.4rem;
+  }
+
+  .fl-marquee-item {
+    padding-right: 1rem;
+  }
+
+  .fl-cols {
+    height: 64vh;
+    bottom: 1.5vh;
+  }
+
+  .fl-can {
+    top: 49%;
+  }
+
+  .fl-content {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1.5rem;
   }
 }
 
