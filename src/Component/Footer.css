@@ -1,0 +1,27 @@
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  padding: 4rem 2rem 2rem;
+  background: var(--black);
+  border-top: 3px solid var(--red);
+  text-align: center;
+}
+
+.footer-logo img {
+  height: 80px;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 20px rgba(196, 30, 30, 0.6));
+}
+
+.footer-content p {
+  color: var(--cream);
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.footer-tagline {
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--red);
+}

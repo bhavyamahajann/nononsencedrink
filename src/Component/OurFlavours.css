@@ -1,157 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+
 /* ============================================
-   PRODUCTS SECTION
-   (background yahan nahi, warna hero dhak jayega)
+   OUR FLAVORS - cards -> cans neeche aate hain -> sticky 3D showcase
    ============================================ */
-.products-section {
-  padding: 0;
+.fl-track {
   position: relative;
+  background: #FAFAFA;
 }
 
-.flavour-scroll {
-  position: relative;
-  background: var(--black);
-}
-
-/* Pehla section hero ke upar overlap karta hai (hero = 100vh) */
-.flavour-scroll.first {
-  margin-top: -100vh;
-  background: transparent;
-  pointer-events: none;
-}
-
-.flavour-stage {
+.fl-stage {
+  --W: min(92vw, 1300px);           /* cards ki total width */
+  --gap: 2rem;
+  --step: calc((var(--W) - 2 * var(--gap)) / 3 + var(--gap)); /* ek card se doosre tak ki doori */
+  --can-h: 60vh;                    /* can ki height */
+  --serif: 'Playfair Display', 'Times New Roman', serif;
   position: sticky;
   top: 0;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  z-index: 11;            /* hero text ke upar */
-  pointer-events: none;
+  background: #FAFAFA;
 }
 
-/* Heading: sirf pehle panel ke saath dikhti hai */
-.section-title {
+/* ---------- MOVING LABEL (marquee) ---------- */
+.fl-marquee {
   position: absolute;
-  top: 5vh;
+  top: 3vh;
   left: 0;
   right: 0;
-  text-align: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--red);
-  letter-spacing: 4px;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  z-index: 3;
-}
-.section-title.show { opacity: 1; }
-
-/* Bottle wrapper: scroll ke saath move */
-.bottle-wrap {
-  --enter: 0;
-  position: relative;
-  z-index: 1;
-  /* normal: neeche se upar */
-  transform: translateY(calc((1 - var(--enter)) * 40vh))
-             scale(calc(0.8 + var(--enter) * 0.2));
-  opacity: calc(0.3 + var(--enter) * 0.7);
-  will-change: transform, opacity;
-}
-
-/* Hero wale left can se center tak travel */
-.bottle-wrap.from-hero {
-  transform:
-    translate(calc((1 - var(--enter)) * -34vw), calc((1 - var(--enter)) * -5vh))
-    rotate(calc((1 - var(--enter)) * -15deg))
-    scale(calc(0.95 + var(--enter) * 0.05));
-  opacity: 1;
-}
-
-.drink-image {
-  display: block;
-  height: 90vh;
-  width: auto;
-  max-width: none;
-  object-fit: contain;
-  filter: drop-shadow(0 30px 80px rgba(196, 30, 30, 0.8));
-  animation: drink-float 4s ease-in-out infinite;
-}
-
-@keyframes drink-float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(2deg); }
-}
-
-/* Text panels */
-.drink-info {
-  position: absolute;
-  top: 50%;
-  width: 30%;
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  overflow: hidden;
+  padding: 0.4rem 0;                /* bina background */
   z-index: 2;
 }
 
-.right-side {
-  right: 6%;
+.fl-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: fl-marquee 90s linear infinite;   /* bada number = aur slow */
+}
+
+.fl-marquee-item {
+  flex-shrink: 0;
+  padding-right: 1.5rem;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(2rem, 4.6vw, 3.8rem);
+  letter-spacing: 0.14em;
+  color: #4B1111;
+}
+
+.fl-marquee-item b {
+  font-weight: 900;
+  margin: 0 0.6rem;
+}
+
+@keyframes fl-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- COLORED CARDS (neeche ka half) ---------- */
+.fl-cols {
+  position: absolute;
+  left: 50%;
+  bottom: 2vh;
+  width: var(--W);
+  height: 70vh;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  z-index: 1;
+}
+
+.fl-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.fl-col::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 40%;
+  background: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.fl-col::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 40%;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+.fl-info {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 10vh;
+  min-height: 70px;
+  text-align: center;
+}
+
+.fl-title {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.7vw, 1.4rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.fl-subtitle {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.98);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- CANS ---------- */
+.fl-can {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--can-h) * 1.77);
+  aspect-ratio: 1 / 1;
+  perspective: 1200px;              /* 3D view */
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.fl-stage[data-phase='B'] .fl-can {
+  transition: opacity 0.4s ease;
+}
+
+.fl-float,
+.fl-sway {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.fl-float {
+  animation: fl-float 5s ease-in-out infinite;
+}
+
+@keyframes fl-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.fl-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+}
+
+/* Phase A: bina animation, scroll se hi move hota hai */
+.fl-stage[data-phase='A'] .fl-img {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Phase B: agla can 3D me ghum ke aata hai */
+.fl-stage[data-phase='B'] .fl-img {
+  opacity: 0;
+  transform: rotateY(90deg) scale(0.9);
+  transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fl-stage[data-phase='B'] .fl-img.is-before {
+  transform: rotateY(-90deg) scale(0.9);
+}
+
+.fl-stage[data-phase='B'] .fl-img.is-active {
+  opacity: 1;
+  transform: rotateY(0deg) scale(1);
+}
+
+/* Shadow sirf can ke base me */
+.fl-shadow {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + var(--can-h) / 2);
+  width: 140px;
+  height: 22px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(4px);
+}
+
+/* ---------- VIDEOS (full screen) ---------- */
+.fl-videos {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.fl-stage[data-phase='B'] .fl-videos {
+  opacity: 1;
+}
+
+.fl-videos-sway {
+  position: absolute;
+  inset: 0;
+}
+
+.fl-video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.7s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fl-video.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fl-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;               /* poori screen bharta hai; poora dikhana ho to 'contain' */
+  display: block;
+}
+
+/* Text padhne ke liye left side halka dark */
+.fl-videos::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 55%);
+}
+
+/* ---------- CONTENT (left se aata hai) ---------- */
+.fl-content {
+  position: absolute;
+  left: 6vw;
+  top: 50%;
+  width: min(30vw, 420px);
+  transform: translate(-120%, -50%);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+  z-index: 4;
+  color: #FFFFFF;
   text-align: left;
-  transform: translate(60px, -50%);
+  pointer-events: none;
 }
 
-.left-side {
-  left: 6%;
-  text-align: right;
-  transform: translate(-60px, -50%);
-}
-
-.drink-info.visible { opacity: 1; }
-
-.right-side.visible,
-.left-side.visible {
+.fl-content.is-active {
   transform: translate(0, -50%);
+  opacity: 1;
 }
 
-.drink-info h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  color: var(--red);
-  letter-spacing: 4px;
-  text-shadow: 0 0 40px rgba(196, 30, 30, 0.8);
-  line-height: 1;
-  margin-bottom: 1rem;
+.fl-tagline {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
 }
 
-.drink-info p {
-  font-size: clamp(1.1rem, 2vw, 1.8rem);
-  color: var(--cream);
-  font-weight: 300;
-  line-height: 1.4;
+.fl-content-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.25rem;
 }
 
-@media (max-width: 768px) {
-  .drink-image { height: 65vh; }
+.fl-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
 
-  .bottle-wrap.from-hero {
-    transform:
-      translate(calc((1 - var(--enter)) * -30vw), calc((1 - var(--enter)) * -5vh))
-      rotate(calc((1 - var(--enter)) * -15deg))
-      scale(calc(0.6 + var(--enter) * 0.4));
+.fl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.fl-tag {
+  padding: 0.4rem 0.9rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .fl-stage {
+    --can-h: 46vh;
+    --gap: 0.75rem;
+    --W: 94vw;
   }
 
-  .drink-info,
-  .left-side,
-  .right-side {
+  .fl-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .fl-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .fl-can {
+    top: 38%;
+  }
+
+  .fl-content {
+    left: 1.5rem;
+    right: 1.5rem;
     top: auto;
-    bottom: 6%;
-    left: 5%;
-    right: 5%;
-    width: 90%;
-    text-align: center;
-    transform: translateY(40px);
+    bottom: 2rem;
+    width: auto;
+    transform: translate(-120%, 0);
   }
 
-  .right-side.visible,
-  .left-side.visible { transform: translateY(0); }
+  .fl-content.is-active {
+    transform: translate(0, 0);
+  }
+
+  .fl-text {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fl-marquee-track {
+    animation: none;
+  }
+
+  .fl-float {
+    animation: none;
+  }
 }

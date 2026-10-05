@@ -1,0 +1,48 @@
+/* ============================================
+   HEADER & NAVIGATION
+   ============================================ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+}
+
+.header-top-bar {
+  background: transparent;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header-logo {
+  position: relative;
+  width: auto;
+  height: 90px;
+  overflow: hidden;
+}
+
+.logo-video {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(139, 69, 19, 0.4));
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header-top-bar {
+    padding: 1rem;
+  }
+
+  .header-logo {
+    height: 60px;
+  }
+
+  .logo-video {
+    height: 60px;
+  }
+}
