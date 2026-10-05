@@ -320,7 +320,9 @@
 /* ============ RESPONSIVE (mobile / tablet) ============ */
 @media (max-width: 900px) {
   .fl-stage {
-    --can-h: 54vh;                  /* can ki height (mobile) - bada/chhota karna ho to yahi badlo */
+    /* can ki height: screen height aur card width dono se limit hoti hai.
+       3.1 ko badlo: bada number = bada can, chhota number = chhota can */
+    --can-h: min(54vh, calc((var(--W) - 2 * var(--gap)) / 3 * 3.1));
     --gap: 0.5rem;
     --W: 96vw;
   }
@@ -365,7 +367,7 @@
 
   /* can: size --can-h se hi chalta hai (width formula desktop jaisi) */
   .fl-can {
-    top: 50%;                       /* can naam se upar rahe; overlap ho to 46%, bahut upar ho to 54% */
+    top: 56%;                       /* can naam se upar rahe; overlap ho to 52%, bahut upar ho to 60% */
   }
 
   .fl-shadow {
@@ -419,7 +421,7 @@
 
 @media (max-width: 480px) {
   .fl-stage {
-    --can-h: 50vh;                  /* chhote phone ke liye thoda aur chhota can */
+    --can-h: min(50vh, calc((var(--W) - 2 * var(--gap)) / 3 * 3.1));  /* chhote phone */
     --gap: 0.4rem;
   }
 
@@ -433,7 +435,7 @@
   }
 
   .fl-can {
-    top: 49%;
+    top: 55%;
   }
 
   .fl-content {
