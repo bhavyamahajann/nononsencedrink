@@ -318,17 +318,20 @@
 }
 
 /* ============ RESPONSIVE (mobile / tablet) ============ */
+/* svh = browser toolbar hata ke jo asli visible height hai (neeche se cut nahi hoga) */
 @media (max-width: 900px) {
   .fl-stage {
-    /* can ki height: screen height aur card width dono se limit hoti hai.
-       3.1 ko badlo: bada number = bada can, chhota number = chhota can */
-    --can-h: min(54vh, calc((var(--W) - 2 * var(--gap)) / 3 * 3.1));
+    height: 100svh;
     --gap: 0.5rem;
     --W: 96vw;
+    /* can ki height: screen height aur card width dono se limit hoti hai.
+       3.1 ko badlo: bada number = bada can, chhota number = chhota can */
+    --can-h: min(50svh, calc((var(--W) - 2 * var(--gap)) / 3 * 3.1));
   }
 
+  /* marquee ab upar chipka nahi hai, cans ke paas aa gaya (gap kam) */
   .fl-marquee {
-    top: 2vh;
+    top: 11svh;                     /* gap aur kam karna ho to isse bada karo */
   }
 
   .fl-marquee-item {
@@ -336,20 +339,20 @@
     letter-spacing: 0.1em;
   }
 
-  /* cards: neeche ka bada hissa colored */
+  /* cards: thode upar uthe hue, neeche bhi thodi jagah */
   .fl-cols {
-    bottom: 2vh;
-    height: 62vh;
+    bottom: 9svh;
+    height: 54svh;
   }
 
   .fl-col::before,
   .fl-col::after {
-    top: 30%;                       /* card upar se thoda kam khali, can ke neeche ka hissa dhakta hai */
+    top: 30%;
     border-radius: 16px;
   }
 
   .fl-info {
-    height: 9vh;
+    height: 9svh;
     min-height: 60px;
     padding: 0 0.25rem;
   }
@@ -365,9 +368,9 @@
     letter-spacing: 0.02em;
   }
 
-  /* can: size --can-h se hi chalta hai (width formula desktop jaisi) */
+  /* can: naam se upar rahe; overlap ho to 46%, bahut upar ho to 52% */
   .fl-can {
-    top: 56%;                       /* can naam se upar rahe; overlap ho to 52%, bahut upar ho to 60% */
+    top: 49%;
   }
 
   .fl-shadow {
@@ -421,21 +424,11 @@
 
 @media (max-width: 480px) {
   .fl-stage {
-    --can-h: min(50vh, calc((var(--W) - 2 * var(--gap)) / 3 * 3.1));  /* chhote phone */
     --gap: 0.4rem;
   }
 
   .fl-marquee-item {
     padding-right: 1rem;
-  }
-
-  .fl-cols {
-    height: 64vh;
-    bottom: 1.5vh;
-  }
-
-  .fl-can {
-    top: 55%;
   }
 
   .fl-content {
