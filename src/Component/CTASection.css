@@ -55,6 +55,7 @@
 }
 
 .cta-content p {
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   color: #D4C4B0;
   margin-bottom: 0;
