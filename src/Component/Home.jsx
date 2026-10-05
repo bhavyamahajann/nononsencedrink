@@ -1,0 +1,41 @@
+import './Home.css'
+import mangoDrink from '../assets/MangoDrink.png'
+import classicWild from '../assets/ClassicWildDrink.png'
+import canVideo from '../3Dmodals/Beverage_can_product_commercial_20261005105933.mp4'
+
+function Home() {
+  return (
+    <section className="hero" id="home">
+      {/* Video Background */}
+      <div className="hero-video-container">
+        <video 
+          className="hero-video-bg"
+          src={canVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="hero-video-overlay"></div>
+      </div>
+
+      {/* 3D Can Images Floating */}
+      <div className="hero-cans">
+        <img src={mangoDrink} alt="Mango Drink" className="hero-can hero-can-left" />
+        <img src={classicWild} alt="Classic Wild" className="hero-can hero-can-right" />
+      </div>
+
+      <div className="hero-content">
+        <h1 className="hero-title fade-in">
+          <span className="unleash">UNLEASH</span>
+          <span className="no-nonsense">NO NONSENSE</span>
+        </h1>
+        <p className="hero-subtitle fade-in">PROTEIN + CAFFEINATED</p>
+      </div>
+
+      <div className="blood-drip"></div>
+    </section>
+  )
+}
+
+export default Home

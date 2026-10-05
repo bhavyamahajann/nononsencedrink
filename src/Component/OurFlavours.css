@@ -1,0 +1,131 @@
+/* ============================================
+   PRODUCTS SECTION
+   ============================================ */
+.products-section {
+  padding: 4rem 0 0;
+  background: var(--black);
+}
+
+.section-title {
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  color: var(--red);
+  margin-bottom: 2rem;
+  letter-spacing: 4px;
+}
+
+/* Tall wrapper = scroll distance (4 panels = 400vh) */
+.flavour-scroll {
+  height: 400vh;
+  position: relative;
+}
+
+/* Screen par chipka rehta hai jab tak wrapper khatam na ho */
+.flavour-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Bottle wrapper: scroll ke saath neeche se upar aati hai */
+.bottle-wrap {
+  --enter: 0;
+  position: relative;
+  z-index: 1;
+  transform: translateY(calc((1 - var(--enter)) * 40vh))
+             scale(calc(0.8 + var(--enter) * 0.2));
+  opacity: calc(0.3 + var(--enter) * 0.7);
+  will-change: transform, opacity;
+}
+
+/* Bottle center mein, bada size */
+.drink-image {
+  display: block;
+  height: 90vh;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 80px rgba(196, 30, 30, 0.8));
+  animation: drink-float 4s ease-in-out infinite;
+}
+
+@keyframes drink-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+/* Text panels */
+.drink-info {
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 2;
+}
+
+.right-side {
+  right: 6%;
+  text-align: left;
+  transform: translate(60px, -50%);
+}
+
+.left-side {
+  left: 6%;
+  text-align: right;
+  transform: translate(-60px, -50%);
+}
+
+.drink-info.visible {
+  opacity: 1;
+}
+
+.right-side.visible,
+.left-side.visible {
+  transform: translate(0, -50%);
+}
+
+.drink-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: var(--red);
+  letter-spacing: 4px;
+  text-shadow: 0 0 40px rgba(196, 30, 30, 0.8);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.drink-info p {
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+  color: var(--cream);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .drink-image { height: 65vh; }
+
+  .drink-info,
+  .left-side,
+  .right-side {
+    top: auto;
+    bottom: 6%;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    text-align: center;
+    transform: translateY(40px);
+  }
+
+  .right-side.visible,
+  .left-side.visible {
+    transform: translateY(0);
+  }
+}

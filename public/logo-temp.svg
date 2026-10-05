@@ -1,0 +1,33 @@
+<svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f4d03f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Outer Ring -->
+  <circle cx="140" cy="140" r="120" stroke="url(#goldGradient)" stroke-width="3" fill="none" opacity="0.8"/>
+  <circle cx="140" cy="140" r="110" stroke="url(#goldGradient)" stroke-width="1.5" fill="none" opacity="0.4"/>
+  
+  <!-- Center Text -->
+  <text x="140" y="120" font-family="serif" font-size="48" font-weight="bold" fill="url(#goldGradient)" text-anchor="middle" filter="url(#glow)">NO</text>
+  <text x="140" cy="170" font-family="serif" font-size="32" font-weight="300" fill="#ffffff" text-anchor="middle" letter-spacing="8">NONSENSE</text>
+  
+  <!-- Decorative Lines -->
+  <line x1="60" y1="140" x2="90" y2="140" stroke="url(#goldGradient)" stroke-width="2" opacity="0.6"/>
+  <line x1="190" y1="140" x2="220" y2="140" stroke="url(#goldGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Corner Accents -->
+  <circle cx="80" cy="80" r="4" fill="url(#goldGradient)" opacity="0.8"/>
+  <circle cx="200" cy="80" r="4" fill="url(#goldGradient)" opacity="0.8"/>
+  <circle cx="80" cy="200" r="4" fill="url(#goldGradient)" opacity="0.8"/>
+  <circle cx="200" cy="200" r="4" fill="url(#goldGradient)" opacity="0.8"/>
+</svg>
