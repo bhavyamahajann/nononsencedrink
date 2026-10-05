@@ -347,7 +347,7 @@
 
   .fl-col::before,
   .fl-col::after {
-    top: 30%;
+    top: 62%;                       /* card can ke neeche se shuru hota hai; can uske upar khada dikhta hai */
     border-radius: 16px;
   }
 
