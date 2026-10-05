@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import './App.css'
 import Home from './Component/Home'
 import OurFlavours from './Component/OurFlavours'
-import threeInOne from './3Dmodals/3inOne.mp4'
-import canVideo2 from './3Dmodals/Beverage_can_product_commercial_20261005110710.mp4'
 
 function App() {
   useEffect(() => {
@@ -46,7 +44,7 @@ function App() {
       <section className="video-section">
         <video 
           className="fullscreen-video"
-          src={threeInOne}
+          src="/3inOne.mp4"
           autoPlay
           loop
           muted
@@ -70,7 +68,7 @@ function App() {
       <section className="video-section">
         <video 
           className="fullscreen-video"
-          src={canVideo2}
+          src="/Beverage_can_product_commercial_20261005110710.mp4"
           autoPlay
           loop
           muted
