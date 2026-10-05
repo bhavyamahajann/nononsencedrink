@@ -325,8 +325,8 @@
     --gap: 0.5rem;
     --W: 96vw;
     /* can ki height: screen height aur card width dono se limit hoti hai.
-       3.1 ko badlo: bada number = bada can, chhota number = chhota can */
-    --can-h: min(50svh, calc((var(--W) - 2 * var(--gap)) / 3 * 3.1));
+       2.55 ko badlo: bada number = bada can, chhota number = chhota can */
+    --can-h: min(44svh, calc((var(--W) - 2 * var(--gap)) / 3 * 2.55));
   }
 
   /* marquee ab upar chipka nahi hai, cans ke paas aa gaya (gap kam) */
@@ -370,7 +370,7 @@
 
   /* can: naam se upar rahe; overlap ho to 46%, bahut upar ho to 52% */
   .fl-can {
-    top: 49%;
+    top: 52%;
   }
 
   .fl-shadow {
