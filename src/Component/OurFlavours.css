@@ -331,7 +331,7 @@
 
   /* marquee ab upar chipka nahi hai, cans ke paas aa gaya (gap kam) */
   .fl-marquee {
-    top: 20svh;                     /* cans ke aur paas lana ho to bada karo, door karna ho to chhota */
+    top: 15svh;                     /* cans ke aur paas lana ho to bada karo, door karna ho to chhota */
   }
 
   .fl-marquee-item {
@@ -341,7 +341,7 @@
 
   /* cards: thode upar uthe hue, neeche bhi thodi jagah */
   .fl-cols {
-    bottom: 15svh;
+    bottom: 18svh;
     height: 54svh;
   }
 
@@ -370,7 +370,8 @@
 
   /* can: naam se upar rahe; overlap ho to 46%, bahut upar ho to 52% */
   .fl-can {
-    top: 46%;
+    top: 43%;
+    left: calc(50% + 2vw);          /* can ko card ke beech me laata hai (PNG me can thoda left hai). right/left ke liye 2vw badlo */
   }
 
   .fl-shadow {
