@@ -28,10 +28,13 @@ const flavours = [
   },
 ]
 
-function FlavourSection({ flavour }) {
+const clamp = (v) => Math.min(Math.max(v, 0), 1)
+
+function FlavourSection({ flavour, first }) {
   const sectionRef = useRef(null)
   const bottleRef = useRef(null)
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(-1)
+  const n = flavour.panels.length
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,20 +43,17 @@ function FlavourSection({ flavour }) {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight
 
-      // Bottle entry: neeche se upar aate waqt 0 -> 1
-      const enter = Math.min(Math.max(1 - rect.top / vh, 0), 1)
+      // first: hero ke upar se side se center tak (0..1 vh scroll)
+      // baaki: neeche se upar aate waqt
+      const enter = first ? clamp(-rect.top / vh) : clamp(1 - rect.top / vh)
       if (bottleRef.current) {
         bottleRef.current.style.setProperty('--enter', enter)
       }
 
-      // Panels: scroll progress se active panel
-      const total = rect.height - vh
-      const progress = Math.min(Math.max(-rect.top / total, 0), 1)
-      const index = Math.min(
-        Math.floor(progress * flavour.panels.length),
-        flavour.panels.length - 1
-      )
-      setActive(index)
+      const offset = first ? vh : 0
+      const progress = clamp((-rect.top - offset) / (rect.height - vh - offset))
+      const index = Math.min(Math.floor(progress * n), n - 1)
+      setActive(enter < 0.98 ? -1 : index)
     }
 
     onScroll()
@@ -63,12 +63,20 @@ function FlavourSection({ flavour }) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [flavour.panels.length])
+  }, [n, first])
 
   return (
-    <div className="flavour-scroll" ref={sectionRef}>
+    <div
+      className={`flavour-scroll ${first ? 'first' : ''}`}
+      ref={sectionRef}
+      style={{ height: `${(n + (first ? 2 : 1)) * 100}vh` }}
+    >
       <div className="flavour-stage">
-        <div className="bottle-wrap" ref={bottleRef}>
+        {first && (
+          <h2 className={`section-title ${active === 0 ? 'show' : ''}`}>OUR FLAVORS</h2>
+        )}
+
+        <div className={`bottle-wrap ${first ? 'from-hero' : ''}`} ref={bottleRef}>
           <img src={flavour.img} alt={flavour.alt} className="drink-image" />
         </div>
 
@@ -91,9 +99,8 @@ function FlavourSection({ flavour }) {
 function OurFlavours() {
   return (
     <section className="products-section" id="story">
-      <h2 className="section-title">OUR FLAVORS</h2>
-      {flavours.map(f => (
-        <FlavourSection key={f.id} flavour={f} />
+      {flavours.map((f, i) => (
+        <FlavourSection key={f.id} flavour={f} first={i === 0} />
       ))}
     </section>
   )
