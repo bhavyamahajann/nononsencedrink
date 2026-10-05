@@ -1,5 +1,4 @@
 import './Home.css'
-import mangoDrink from '../assets/MangoDrink.png'
 import classicWild from '../assets/ClassicWildDrink.png'
 
 function Home() {
@@ -7,7 +6,7 @@ function Home() {
     <section className="hero" id="home">
       {/* Video Background */}
       <div className="hero-video-container">
-        <video 
+        <video
           className="hero-video-bg"
           src="/Beverage_can_product_commercial_20261005105933.mp4"
           autoPlay
@@ -18,9 +17,8 @@ function Home() {
         <div className="hero-video-overlay"></div>
       </div>
 
-      {/* 3D Can Images Floating */}
+      {/* Sirf right can. Left (mango) OurFlavours se aata hai */}
       <div className="hero-cans">
-        <img src={mangoDrink} alt="Mango Drink" className="hero-can hero-can-left" />
         <img src={classicWild} alt="Classic Wild" className="hero-can hero-can-right" />
       </div>
 

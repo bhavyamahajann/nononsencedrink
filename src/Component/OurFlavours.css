@@ -1,27 +1,24 @@
 /* ============================================
    PRODUCTS SECTION
+   (background yahan nahi, warna hero dhak jayega)
    ============================================ */
 .products-section {
-  padding: 4rem 0 0;
-  background: var(--black);
-}
-
-.section-title {
-  text-align: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 6vw, 5rem);
-  color: var(--red);
-  margin-bottom: 2rem;
-  letter-spacing: 4px;
-}
-
-/* Tall wrapper = scroll distance (4 panels = 400vh) */
-.flavour-scroll {
-  height: 400vh;
+  padding: 0;
   position: relative;
 }
 
-/* Screen par chipka rehta hai jab tak wrapper khatam na ho */
+.flavour-scroll {
+  position: relative;
+  background: var(--black);
+}
+
+/* Pehla section hero ke upar overlap karta hai (hero = 100vh) */
+.flavour-scroll.first {
+  margin-top: -100vh;
+  background: transparent;
+  pointer-events: none;
+}
+
 .flavour-stage {
   position: sticky;
   top: 0;
@@ -30,20 +27,48 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  z-index: 11;            /* hero text ke upar */
+  pointer-events: none;
 }
 
-/* Bottle wrapper: scroll ke saath neeche se upar aati hai */
+/* Heading: sirf pehle panel ke saath dikhti hai */
+.section-title {
+  position: absolute;
+  top: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--red);
+  letter-spacing: 4px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 3;
+}
+.section-title.show { opacity: 1; }
+
+/* Bottle wrapper: scroll ke saath move */
 .bottle-wrap {
   --enter: 0;
   position: relative;
   z-index: 1;
+  /* normal: neeche se upar */
   transform: translateY(calc((1 - var(--enter)) * 40vh))
              scale(calc(0.8 + var(--enter) * 0.2));
   opacity: calc(0.3 + var(--enter) * 0.7);
   will-change: transform, opacity;
 }
 
-/* Bottle center mein, bada size */
+/* Hero wale left can se center tak travel */
+.bottle-wrap.from-hero {
+  transform:
+    translate(calc((1 - var(--enter)) * -34vw), calc((1 - var(--enter)) * -5vh))
+    rotate(calc((1 - var(--enter)) * -15deg))
+    scale(calc(0.95 + var(--enter) * 0.05));
+  opacity: 1;
+}
+
 .drink-image {
   display: block;
   height: 90vh;
@@ -65,7 +90,6 @@
   top: 50%;
   width: 30%;
   opacity: 0;
-  pointer-events: none;
   transition: opacity 0.6s ease, transform 0.6s ease;
   z-index: 2;
 }
@@ -82,9 +106,7 @@
   transform: translate(-60px, -50%);
 }
 
-.drink-info.visible {
-  opacity: 1;
-}
+.drink-info.visible { opacity: 1; }
 
 .right-side.visible,
 .left-side.visible {
@@ -108,9 +130,15 @@
   line-height: 1.4;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .drink-image { height: 65vh; }
+
+  .bottle-wrap.from-hero {
+    transform:
+      translate(calc((1 - var(--enter)) * -30vw), calc((1 - var(--enter)) * -5vh))
+      rotate(calc((1 - var(--enter)) * -15deg))
+      scale(calc(0.6 + var(--enter) * 0.4));
+  }
 
   .drink-info,
   .left-side,
@@ -125,7 +153,5 @@
   }
 
   .right-side.visible,
-  .left-side.visible {
-    transform: translateY(0);
-  }
+  .left-side.visible { transform: translateY(0); }
 }
