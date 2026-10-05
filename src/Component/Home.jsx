@@ -1,7 +1,6 @@
 import './Home.css'
 import mangoDrink from '../assets/MangoDrink.png'
 import classicWild from '../assets/ClassicWildDrink.png'
-import canVideo from '../3Dmodals/Beverage_can_product_commercial_20261005105933.mp4'
 
 function Home() {
   return (
@@ -10,7 +9,7 @@ function Home() {
       <div className="hero-video-container">
         <video 
           className="hero-video-bg"
-          src={canVideo}
+          src="/Beverage_can_product_commercial_20261005105933.mp4"
           autoPlay
           loop
           muted
