@@ -71,7 +71,7 @@
 
 .hero-can {
   position: absolute;
-    width: 440px;
+  width: 560px;
   height: auto;
   filter: drop-shadow(0 20px 60px rgba(196, 30, 30, 0.6));
 }
