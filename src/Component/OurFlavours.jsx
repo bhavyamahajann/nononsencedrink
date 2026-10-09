@@ -71,7 +71,7 @@ const stats = [
   { value: 6, suffix: 'g', label: 'Protein', mark: '6g', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: byId.mango.bg },
   { value: 75, suffix: 'mg', label: 'Caffeine', mark: '75mg', text: 'Just the right kick to power through your day.', bg: byId.classic.bg },
   { display: 'Prebiotic', label: 'Fibre', mark: 'Prebiotic', text: 'Prebiotic fibre in every can, built into the flavour.', bg: byId.coffee.bg },
-  { display: 'B2 B3 B6 B12', label: 'Vitamins', mark: 'B2 B3 B6 B12', text: 'A blend of B vitamins to keep up with your everyday hustle.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
+  { display: 'B2 , B3 , B6 , B12', label: 'Vitamins', mark: 'B2 B3 B6 B12', text: 'A blend of B vitamins to keep up with your everyday hustle.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
   { value: 0, suffix: 'g', label: 'Added Sugar', mark: 'Zero', text: 'Zero added sugar. All the flavour, none of the nonsense.', bg: 'linear-gradient(135deg, #2E2E2E 0%, #0F0F0F 100%)' },
 ]
 
@@ -293,10 +293,12 @@ function StatsStack() {
                   }}
                 >
                   <StatArt type={STAT_ICON[st.label]} />
-                  <span className="fl-stat-badge">per 250 ml</span>
-                  <div className={`fl-stat-num ${isWord ? 'is-word' : ''}`}>
-                    {val}
-                    {!isWord && <small>{st.suffix}</small>}
+                  <div className="fl-stat-top">
+                    <span className="fl-stat-badge">per 250 ml</span>
+                    <div className={`fl-stat-num ${isWord ? 'is-word' : ''}`}>
+                      {val}
+                      {!isWord && <small>{st.suffix}</small>}
+                    </div>
                   </div>
                   <div className="fl-stat-body">
                     <p className="fl-stat-label">{st.label}</p>

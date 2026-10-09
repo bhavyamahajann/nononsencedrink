@@ -749,11 +749,18 @@
   100% { transform: translateY(-660px) translateX(14px); opacity: 0; }
 }
 
+/* badge ab number ke upar normal flow me hai (overlap nahi hota) */
+.fl-stat-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
 .fl-stat-badge {
-  position: absolute;
-  top: clamp(1.4rem, 2.6vw, 2.4rem);
-  right: clamp(1.4rem, 2.6vw, 2.4rem);
-  z-index: 3;
+  display: inline-block;
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.6);
