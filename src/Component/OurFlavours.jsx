@@ -261,12 +261,12 @@ const DRIP_COLORS = ['#FFB84D', '#8B3A1E', '#4169E1']
 
 // hl = marker highlight colour (mango / cola / berry)
 const STORY_TEXT = [
-  { t: "We didn't come here to make another ordinary drink." },
+  { t: "We didn't come here to make another ordinary drink" },
   { t: 'We came to' },
-  { t: 'shake things up.', hl: 'mango' },
-  { t: 'Unexpected flavours.', hl: 'cola' },
-  { t: 'Unapologetic attitude.', hl: 'berry' },
-  { t: 'A little madness in every can.' },
+  { t: 'shake things up', hl: 'mango' },
+  { t: 'Unexpected flavours ', hl: 'cola' },
+  { t: 'Unapologetic attitude ', hl: 'berry' },
+  { t: 'A little madness in every can ' },
 ]
 
 const STORY_WORDS = STORY_TEXT.flatMap((seg) =>
