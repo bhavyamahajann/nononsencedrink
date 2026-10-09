@@ -15,7 +15,10 @@ const SHOW_VIDEO = true
 
 const CTA_LABEL = 'Discover the flavour'
 
-const flavours = [
+// Arrows ke paas aane wale notes (pehla highlighted pill me)
+const PROTEIN_NOTES = ['protein infused', 'fuel your muscles']
+
+const baseFlavours = [
   {
     id: 'mango',
     img: mangoDrink,
@@ -57,12 +60,17 @@ const flavours = [
   },
 ]
 
+// Order: pehle red, phir blue, last me yellow (lineup + focus dono me yahi order)
+const FLAVOUR_ORDER = ['coffee', 'classic', 'mango']
+const flavours = FLAVOUR_ORDER.map((id) => baseFlavours.find((f) => f.id === id))
+const byId = Object.fromEntries(baseFlavours.map((f) => [f.id, f]))
+
 // What's inside: 5 markers (values are per 250 ml can)
 // value + decimals = counting number | display = number ki jagah chhota text
 const stats = [
-  { value: 2.4, decimals: 1, suffix: 'g', label: 'Protein', mark: '2.4g', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: flavours[0].bg },
-  { value: 75, suffix: 'mg', label: 'Caffeine', mark: '75mg', text: 'Just the right kick to power through your day.', bg: flavours[2].bg },
-  { display: 'Prebiotic', label: 'Fibre', mark: 'Prebiotic', text: 'Prebiotic fibre in every can, built into the flavour.', bg: flavours[1].bg },
+  { value: 6, suffix: 'g', label: 'Protein', mark: '6g', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: byId.mango.bg },
+  { value: 75, suffix: 'mg', label: 'Caffeine', mark: '75mg', text: 'Just the right kick to power through your day.', bg: byId.classic.bg },
+  { display: 'Prebiotic', label: 'Fibre', mark: 'Prebiotic', text: 'Prebiotic fibre in every can, built into the flavour.', bg: byId.coffee.bg },
   { display: 'B2 B3 B6 B12', label: 'Vitamins', mark: 'B2 B3 B6 B12', text: 'A blend of B vitamins to keep up with your everyday hustle.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
   { value: 0, suffix: 'g', label: 'Added Sugar', mark: 'Zero', text: 'Zero added sugar. All the flavour, none of the nonsense.', bg: 'linear-gradient(135deg, #2E2E2E 0%, #0F0F0F 100%)' },
 ]
@@ -115,6 +123,70 @@ function useInView(threshold = 0.25) {
 /* ============================================
    03 / WHAT'S INSIDE
    ============================================ */
+// har stat card ka bada watermark icon (energy-drink vibe)
+const STAT_ICON = {
+  Protein: 'dumbbell',
+  Caffeine: 'bolt',
+  Fibre: 'leaf',
+  Vitamins: 'capsule',
+  'Added Sugar': 'sugar',
+}
+
+// fizz bubbles jo card me neeche se upar uthte hain
+const BUBBLES = Array.from({ length: 14 }, (_, b) => ({
+  left: (b * 37) % 92 + 4,
+  size: 6 + ((b * 7) % 16),
+  dur: 5 + (b % 5),
+  delay: -(b * 0.85),
+}))
+
+function StatArt({ type }) {
+  return (
+    <div className="fl-stat-art" aria-hidden="true">
+      <span className="fl-stat-glow" />
+      <svg className="fl-stat-icon" viewBox="0 0 100 100">
+        {type === 'bolt' && <polygon points="58,4 20,56 46,56 38,96 80,40 54,40" />}
+        {type === 'dumbbell' && (
+          <path d="M8 40v20M20 30v40M80 30v40M92 40v20M20 50h60" />
+        )}
+        {type === 'leaf' && (
+          <>
+            <path d="M16 84C14 42 46 12 88 12C90 56 62 88 16 84Z" />
+            <path d="M16 84L62 38" />
+          </>
+        )}
+        {type === 'capsule' && (
+          <>
+            <rect x="10" y="32" width="80" height="36" rx="18" />
+            <path d="M50 32v36" />
+            <path d="M28 44v12" />
+          </>
+        )}
+        {type === 'sugar' && (
+          <>
+            <path d="M50 12L85 30V70L50 88L15 70V30Z" />
+            <path d="M15 30L50 48L85 30M50 48V88" />
+            <path d="M8 92L92 8" className="fl-stat-slash" />
+          </>
+        )}
+      </svg>
+      {BUBBLES.map((b, i) => (
+        <span
+          key={i}
+          className="fl-bubble"
+          style={{
+            left: `${b.left}%`,
+            width: `${b.size}px`,
+            height: `${b.size}px`,
+            animationDuration: `${b.dur}s`,
+            animationDelay: `${b.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 function StatsStack() {
   const trackRef = useRef(null)
   const [s, setS] = useState(-1)
@@ -220,11 +292,13 @@ function StatsStack() {
                     transform: `translateY(calc(${num(enterY, 2)}vh - ${num(lift, 1)}px)) scale(${num(sc, 4)}) rotate(${num(rot, 2)}deg)`,
                   }}
                 >
+                  <StatArt type={STAT_ICON[st.label]} />
+                  <span className="fl-stat-badge">per 250 ml</span>
                   <div className={`fl-stat-num ${isWord ? 'is-word' : ''}`}>
                     {val}
                     {!isWord && <small>{st.suffix}</small>}
                   </div>
-                  <div>
+                  <div className="fl-stat-body">
                     <p className="fl-stat-label">{st.label}</p>
                     <p className="fl-stat-text">{st.text}</p>
                   </div>
@@ -434,9 +508,9 @@ function FinalCTA() {
 
         {/* teeno cans ek saath */}
         <div className="fl-final-cans">
-          <img src={flavours[0].img} alt={flavours[0].alt} className="fl-fc fl-fc-1" />
-          <img src={flavours[1].img} alt={flavours[1].alt} className="fl-fc fl-fc-2" />
-          <img src={flavours[2].img} alt={flavours[2].alt} className="fl-fc fl-fc-3" />
+          <img src={byId.mango.img} alt={byId.mango.alt} className="fl-fc fl-fc-1" />
+          <img src={byId.coffee.img} alt={byId.coffee.alt} className="fl-fc fl-fc-2" />
+          <img src={byId.classic.img} alt={byId.classic.alt} className="fl-fc fl-fc-3" />
         </div>
 
         <p className="fl-final-pick">PICK YOUR CHAOS</p>
@@ -614,7 +688,7 @@ function OurFlavours() {
                 </div>
 
                 {/* drink ke aas paas 2 arrows (sirf desktop) */}
-                {f.notes.map((line, k) => (
+                {PROTEIN_NOTES.map((line, k) => (
                   <div
                     key={line}
                     className={`fl-note fl-n${k + 1} ${on && k < shown ? 'is-active' : ''}`}
