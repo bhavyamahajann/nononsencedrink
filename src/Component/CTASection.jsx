@@ -42,7 +42,7 @@ function CTASection() {
         </h2>
 
         <p>
-          Protein. Caffeine. Flavour. All in one can.
+          Protein. Caffeine Flavour All in one can
         </p>
 
         <ul className="cta-chips">
