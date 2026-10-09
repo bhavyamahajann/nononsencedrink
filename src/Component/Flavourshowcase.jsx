@@ -92,6 +92,14 @@ function FlavourShowcase() {
       ref={trackRef}
       style={{ height: `${(N + 1) * 100}vh` }}
     >
+      {/* Scrolling Marquee above the showcase */}
+      <div className="showcase-marquee">
+        <div className="showcase-marquee-content">
+          <span>ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • </span>
+          <span>ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • </span>
+        </div>
+      </div>
+      
       <div className="showcase-stage">
         {/* Content: left se aata hai */}
         {items.map((it, i) => (
