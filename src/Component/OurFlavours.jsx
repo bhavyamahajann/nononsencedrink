@@ -408,8 +408,8 @@ function Story() {
           style={{ opacity: num(clamp(s * 3), 3) }}
         >
           <div className="st-stamp" style={{ transform: `rotate(-5deg) scale(${num(stampScale, 3)})` }}>
-            <span className="st-stamp-a">NO LIMITS.</span>
-            <span className="st-stamp-b">NO NONSENSE.</span>
+            <span className="st-stamp-a">NO LIMITS</span>
+            <span className="st-stamp-b">NO NONSENSE </span>
           </div>
           <span className="st-ring" aria-hidden="true" />
         </div>
