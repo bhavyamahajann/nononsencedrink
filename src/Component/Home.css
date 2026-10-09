@@ -44,59 +44,58 @@
   position: relative;
   z-index: 10;
   text-align: center;
-  color: white;
-  max-width: 800px;
+  color: #ffffff;
+  max-width: 900px;
   padding: 2rem;
   animation: fadeInUp 1s ease-out;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
-  letter-spacing: 0.1em;
-  margin: 0 0 1rem 0;
+  letter-spacing: 0.15em;
+  margin: 0 0 1.5rem 0;
   text-transform: uppercase;
-  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.9);
+  text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.95);
   color: #ffffff;
+  line-height: 1.1;
 }
 
 .hero-headline {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  margin: 0 0 1.5rem 0;
-  letter-spacing: 0.05em;
-  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.9);
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.08em;
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.95);
   color: #ffffff;
+  line-height: 1.2;
 }
 
 .hero-tagline {
-  font-size: 1.25rem;
-  font-weight: 400;
-  margin: 0 0 2rem 0;
-  opacity: 1;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
-  color: #f0f0f0;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0 0 2.5rem 0;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.95);
+  color: #ffffff;
+  line-height: 1.4;
 }
 
 .hero-cta {
   display: inline-block;
-  padding: 1rem 3rem;
-  font-size: 1rem;
+  padding: 1.2rem 3.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #000;
-  background: #fff;
+  background: #ffffff;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
 .hero-cta:hover {
@@ -106,17 +105,18 @@
 }
 
 .hero-specs {
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  opacity: 1;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
-  color: #f0f0f0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.95);
+  color: #ffffff;
+  text-transform: uppercase;
 }
 
 .hero-divider {
-  margin: 0 1rem;
-  opacity: 0.5;
+  margin: 0 1.5rem;
+  opacity: 0.7;
+  color: #ffffff;
 }
 
 @keyframes fadeInUp {
