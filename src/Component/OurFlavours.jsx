@@ -360,7 +360,8 @@ function OurFlavours() {
           {flavours.map((f, i) => {
             const xmul = num((i - 1) * (1 - t), 4)
             const yv = num((1 - t) * 4, 3)
-            const scale = num((0.86 + 0.14 * t) * f.scale, 4)
+            const FOCUS_BOOST = 0 // focus me can kitna bada: 0 = default, +0.1 = thoda bada, -0.1 = thoda chhota
+            const scale = num((0.86 + 0.14 * t) * f.scale * (1 + FOCUS_BOOST * t), 4)
             const rot = i === 0 ? num(Math.sin(t * Math.PI) * -8, 2) : 0
 
             let opacity

@@ -23,7 +23,7 @@
   --W: min(92vw, 1300px);           /* panels ki total width */
   --gap: 2rem;
   --step: calc((var(--W) - 2 * var(--gap)) / 3 + var(--gap));
-  --can-h: 60vh;                    /* can ki height */
+  --can-h: 44vh;                    /* can ki height */
   --fx: 14vw;                       /* focus me can kitna right jaaye (negative = left, 0 = center) */
   --fy: 0vh;                        /* focus me can kitna upar/neeche */
   position: sticky;
@@ -613,7 +613,7 @@
     --fx: 0px;
     --fy: 0svh;
     /* 2.55 ko badlo: bada number = bada can */
-    --can-h: min(44svh, calc((var(--W) - 2 * var(--gap)) / 3 * 2.55));
+    --can-h: min(36svh, calc((var(--W) - 2 * var(--gap)) / 3 * 2.1));
   }
 
   .fl-head {
