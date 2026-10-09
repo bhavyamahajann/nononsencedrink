@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './OurFlavours.css'
-import mangoDrink from '../assets/MangoDrink.png'
-import coffeeCola from '../assets/CoffeeCola.png'
+import mangoDrink from '../assets/MangoDrink (2).png'
+import coffeeCola from '../assets/CoffeeCola (2).png'
 import classicWild from '../assets/ClassicWildDrink.png'
 
 // Videos public folder me hain, isliye seedha '/' se path (import nahi)
