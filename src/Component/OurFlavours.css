@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bowlby+One&family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bowlby+One&family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* ============================================
    OUR FLAVOURS
@@ -34,7 +34,7 @@
   background: radial-gradient(ellipse at 50% 0%, #FBF7EF 0%, var(--cream) 70%);
 }
 
-/* ---------- HEADLINE ---------- */
+/* ---------- HEADLINE AREA (ab moving marquee) ---------- */
 .fl-head {
   position: absolute;
   top: 3.5vh;
@@ -43,6 +43,34 @@
   text-align: center;
   z-index: 2;
   pointer-events: none;
+}
+
+/* ---------- MOVING MARQUEE ---------- */
+.fl-marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fl-marquee-content {
+  display: inline-flex;
+  width: max-content;
+  animation: fl-marquee 20s linear infinite;
+}
+
+.fl-marquee-content span {
+  flex-shrink: 0;
+  font-family: 'Bebas Neue', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+@keyframes fl-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .fl-headline {
@@ -1160,7 +1188,12 @@
 
   .fl-head {
     top: 4svh;
-    padding: 0 1rem;
+    padding: 0;
+  }
+
+  .fl-marquee-content span {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    letter-spacing: 0.1em;
   }
 
   .fl-headline {
@@ -1325,6 +1358,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .fl-float {
+    animation: none;
+  }
+
+  .fl-marquee-content {
     animation: none;
   }
 

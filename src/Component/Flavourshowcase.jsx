@@ -12,7 +12,6 @@ const items = [
     tagline: 'Tropical Energy',
     text: 'Bright mango flavour with a caffeinated protein kick. Cold, loud and zero sugar.',
     tags: ['Zero Sugar', 'Dietary Fiber', '250 ml'],
-    bg: 'linear-gradient(135deg, #FFB84D 0%, #FF8C42 100%)',
   },
   {
     id: 'coffee',
@@ -21,7 +20,6 @@ const items = [
     tagline: 'Double Kick Energy',
     text: 'Coffee and cola in one can. Double the kick, none of the sugar.',
     tags: ['Zero Sugar', 'Dietary Fiber', '250 ml'],
-    bg: 'linear-gradient(135deg, #DC143C 0%, #8B0000 100%)',
   },
   {
     id: 'classic',
@@ -30,12 +28,13 @@ const items = [
     tagline: 'Untamed Power',
     text: 'Wild berry taste that hits hard and finishes clean. Pure classic, zero sugar.',
     tags: ['Zero Sugar', 'Dietary Fiber', '250 ml'],
-    bg: 'linear-gradient(135deg, #4169E1 0%, #0047AB 100%)',
   },
 ]
 
 const N = items.length
 const clamp = (v) => Math.min(1, Math.max(0, v))
+const MARQUEE_TEXT =
+  'ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • '
 
 function FlavourShowcase() {
   const trackRef = useRef(null)
@@ -58,7 +57,7 @@ function FlavourShowcase() {
       const progress = clamp(-r.top / (r.height - vh))
       const active = Math.min(N - 1, Math.floor(progress * N))
 
-      // scroll ke saath halka 3D ghumna (-18deg se +18deg)
+      // scroll ke saath halka 3D ghumna
       const local = progress * N - active
       const sway = Math.round((local - 0.5) * 36)
 
@@ -87,67 +86,68 @@ function FlavourShowcase() {
   const ready = enter >= 0.95
 
   return (
-    <section
-      className="showcase-track"
-      ref={trackRef}
-      style={{ height: `${(N + 1) * 100}vh` }}
-    >
-      {/* Scrolling Marquee above the showcase */}
+    <>
+      {/* Moving marquee (showcase ke bahar, upar) */}
       <div className="showcase-marquee">
         <div className="showcase-marquee-content">
-          <span>ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • </span>
-          <span>ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • </span>
+          <span>{MARQUEE_TEXT}</span>
+          <span>{MARQUEE_TEXT}</span>
         </div>
       </div>
-      
-      <div className="showcase-stage">
-        {/* Content: left se aata hai */}
-        {items.map((it, i) => (
-          <div
-            key={it.id}
-            className={`showcase-content ${i === active && ready ? 'is-active' : ''}`}
-          >
-            <p className="showcase-tagline">{it.tagline}</p>
-            <h3 className="showcase-title">{it.title}</h3>
-            <p className="showcase-text">{it.text}</p>
-            <div className="showcase-tags">
-              {it.tags.map((t) => (
-                <span key={t} className="showcase-tag">{t}</span>
-              ))}
-            </div>
-          </div>
-        ))}
 
-        {/* Can: hamesha center me, upar se tilt hoke neeche aata hai */}
-        <div
-          className="showcase-can"
-          style={{
-            opacity: enter,
-            transform: `translate(-50%, calc(-50% - ${(1 - enter) * 100}vh)) rotate(${(1 - enter) * -25}deg)`,
-          }}
-        >
-          <div className="showcase-float">
+      <section
+        className="showcase-track"
+        ref={trackRef}
+        style={{ height: `${(N + 1) * 100}vh` }}
+      >
+        <div className="showcase-stage">
+          {/* Content: left se aata hai */}
+          {items.map((it, i) => (
             <div
-              className="showcase-sway"
-              style={{ transform: `rotateY(${sway}deg)` }}
+              key={it.id}
+              className={`showcase-content ${i === active && ready ? 'is-active' : ''}`}
             >
-              {items.map((it, i) => (
-                <img
-                  key={it.id}
-                  src={it.img}
-                  alt={it.title}
-                  className={`showcase-img ${
-                    i === active ? 'is-active' : i < active ? 'is-before' : 'is-after'
-                  }`}
-                />
-              ))}
+              <p className="showcase-tagline">{it.tagline}</p>
+              <h3 className="showcase-title">{it.title}</h3>
+              <p className="showcase-text">{it.text}</p>
+              <div className="showcase-tags">
+                {it.tags.map((t) => (
+                  <span key={t} className="showcase-tag">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          {/* Can: hamesha center me, upar se tilt hoke neeche aata hai */}
+          <div
+            className="showcase-can"
+            style={{
+              opacity: enter,
+              transform: `translate(-50%, calc(-50% - ${(1 - enter) * 100}vh)) rotate(${(1 - enter) * -25}deg)`,
+            }}
+          >
+            <div className="showcase-float">
+              <div
+                className="showcase-sway"
+                style={{ transform: `rotateY(${sway}deg)` }}
+              >
+                {items.map((it, i) => (
+                  <img
+                    key={it.id}
+                    src={it.img}
+                    alt={it.title}
+                    className={`showcase-img ${
+                      i === active ? 'is-active' : i < active ? 'is-before' : 'is-after'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
+          <span className="showcase-shadow" style={{ opacity: enter }} />
         </div>
-        <span className="showcase-shadow" style={{ opacity: enter }} />
-
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 

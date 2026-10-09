@@ -15,6 +15,10 @@ const SHOW_VIDEO = true
 
 const CTA_LABEL = 'Discover the flavour'
 
+// "THE FLAVOURS" ki jagah moving marquee ka text
+const MARQUEE_TEXT =
+  'ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • ZERO NONSENSE • PROTEIN-INFUSED • '
+
 // Arrows ke paas aane wale notes (pehla highlighted pill me)
 const PROTEIN_NOTES = ['protein infused', 'fuel your muscles']
 
@@ -609,14 +613,17 @@ function OurFlavours() {
         style={{ height: `${(TOTAL + 1) * 100}vh` }}
       >
         <div className="fl-stage" data-phase={phaseB ? 'B' : 'A'}>
-          {/* ---------- Headline ---------- */}
+          {/* ---------- Moving marquee ("THE FLAVOURS" ki jagah) ---------- */}
           <div
             className="fl-head"
             style={{ opacity: headOpacity, transform: `translateY(${num(-t * 30, 1)}px)` }}
           >
-            <h2 className="fl-headline">
-               <span>THE FLAVOURS</span>
-            </h2>
+            <div className="fl-marquee">
+              <div className="fl-marquee-content">
+                <span>{MARQUEE_TEXT}</span>
+                <span>{MARQUEE_TEXT}</span>
+              </div>
+            </div>
           </div>
 
           {/* ---------- Coloured panels (cans ke peeche uthte hain) ---------- */}

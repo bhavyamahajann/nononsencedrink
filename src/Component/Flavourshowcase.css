@@ -1,4 +1,37 @@
 /* ============================================
+   MOVING MARQUEE (sticky nahi, normal scroll)
+   ============================================ */
+.showcase-marquee {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: #FAFAFA;
+  padding: 1.2rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.showcase-marquee-content {
+  display: inline-flex;
+  width: max-content;
+  animation: scroll-marquee 20s linear infinite;
+}
+
+.showcase-marquee-content span {
+  flex-shrink: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: 0.12em;
+  color: #4A1010;
+  text-transform: uppercase;
+}
+
+@keyframes scroll-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
    FLAVOUR SHOWCASE - sticky can + scroll content
    ============================================ */
 .showcase-track {
@@ -7,7 +40,7 @@
 }
 
 .showcase-stage {
-  --can-h: 74vh;                    /* can ki height */
+  --can-h: 74vh;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -25,7 +58,7 @@
   z-index: 2;
   will-change: transform, opacity;
   pointer-events: none;
-  perspective: 1200px;              /* 3D view */
+  perspective: 1200px;
 }
 
 .showcase-float,
@@ -35,7 +68,6 @@
   transform-style: preserve-3d;
 }
 
-/* Float animation */
 .showcase-float {
   animation: showcase-float 5s ease-in-out infinite;
 }
@@ -53,7 +85,7 @@
   object-fit: contain;
   opacity: 0;
   backface-visibility: hidden;
-  transform: rotateY(90deg) scale(0.9);        /* agla can 3D me ghum ke aata hai */
+  transform: rotateY(90deg) scale(0.9);
   transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -66,7 +98,6 @@
   transform: rotateY(0deg) scale(1);
 }
 
-/* Shadow sirf can ke base me */
 .showcase-shadow {
   position: absolute;
   left: 50%;
@@ -136,9 +167,7 @@
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
-  .showcase-stage {
-    --can-h: 45vh;
-  }
+  .showcase-stage { --can-h: 45vh; }
 
   .showcase-can {
     top: 35%;
@@ -161,43 +190,18 @@
     text-align: left;
   }
 
-  .showcase-content.is-active {
-    transform: translate(0, 0);
-  }
+  .showcase-content.is-active { transform: translate(0, 0); }
 
-  .showcase-tagline {
-    font-size: 0.95rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .showcase-title {
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    margin-bottom: 1rem;
-  }
-
-  .showcase-text {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .showcase-tags {
-    gap: 0.5rem;
-  }
-
-  .showcase-tag {
-    padding: 0.3rem 0.7rem;
-    font-size: 0.8rem;
-  }
+  .showcase-tagline { font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .showcase-title { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 1rem; }
+  .showcase-text { font-size: 0.9rem; margin-bottom: 1rem; }
+  .showcase-tags { gap: 0.5rem; }
+  .showcase-tag { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
 }
 
 @media (max-width: 480px) {
-  .showcase-stage {
-    --can-h: 38vh;
-  }
-
-  .showcase-can {
-    top: 32%;
-  }
+  .showcase-stage { --can-h: 38vh; }
+  .showcase-can { top: 32%; }
 
   .showcase-shadow {
     top: calc(32% + var(--can-h) / 2);
@@ -205,97 +209,16 @@
     height: 15px;
   }
 
-  .showcase-content {
-    left: 1rem;
-    right: 1rem;
-    bottom: 1.5rem;
-  }
-
-  .showcase-tagline {
-    font-size: 0.85rem;
-  }
-
-  .showcase-title {
-    font-size: clamp(1.5rem, 4.5vw, 2.2rem);
-    margin-bottom: 0.8rem;
-  }
-
-  .showcase-text {
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  .showcase-tag {
-    padding: 0.25rem 0.6rem;
-    font-size: 0.75rem;
-  }
+  .showcase-content { left: 1rem; right: 1rem; bottom: 1.5rem; }
+  .showcase-tagline { font-size: 0.85rem; }
+  .showcase-title { font-size: clamp(1.5rem, 4.5vw, 2.2rem); margin-bottom: 0.8rem; }
+  .showcase-text { font-size: 0.85rem; line-height: 1.5; }
+  .showcase-tag { padding: 0.25rem 0.6rem; font-size: 0.75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .showcase-content,
-  .showcase-img {
-    transition: none;
-  }
-  .showcase-float {
-    animation: none;
-  }
-}
-
-/* ============================================
-   SCROLLING MARQUEE (above showcase)
-   ============================================ */
-.showcase-marquee {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--black);
-  border-top: 2px solid var(--red);
-  border-bottom: 2px solid var(--red);
-  padding: 0.75rem 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.showcase-marquee-content {
-  display: inline-flex;
-  animation: scroll-marquee 20s linear infinite;
-}
-
-.showcase-marquee-content span {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--cream);
-  text-transform: uppercase;
-}
-
-@keyframes scroll-marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@media (max-width: 768px) {
-  .showcase-marquee {
-    padding: 0.6rem 0;
-  }
-  
-  .showcase-marquee-content span {
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
-  }
-}
-
-@media (max-width: 480px) {
-  .showcase-marquee {
-    padding: 0.5rem 0;
-  }
-  
-  .showcase-marquee-content span {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-  }
+  .showcase-img { transition: none; }
+  .showcase-float,
+  .showcase-marquee-content { animation: none; }
 }
