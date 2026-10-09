@@ -3,7 +3,7 @@ import './Home.css'
 function Home() {
   return (
     <section className="hero" id="home">
-      {/* Video Background - 3inOne.mp4 - Full screen without text */}
+      {/* Video background */}
       <div className="hero-video-container">
         <video
           className="hero-video"
@@ -13,22 +13,33 @@ function Home() {
           muted
           playsInline
         />
-        
-        {/* Hero Content Overlay */}
-        <div className="hero-content">
-          <h1 className="hero-title">NO NONSENSE.</h1>
-          <h2 className="hero-headline">BIG ENERGY. ZERO NONSENSE.</h2>
+      </div>
+
+      {/* Soft gradients so text stays readable without covering the cans */}
+      <div className="hero-shade hero-shade-top" />
+      <div className="hero-shade hero-shade-bottom" />
+
+      {/* Top: brand + headline (cans ke upar, unhe nahi dhakta) */}
+      <div className="hero-top">
+        <span className="hero-eyebrow">No Nonsense &middot; Caffeinated Protein Drink</span>
+        <h1 className="hero-headline">
+          Big energy - <em>Zero nonsense</em>
+        </h1>
+      </div>
+
+      {/* Bottom: left me tagline + button, right me specs (cans ke dono taraf) */}
+      <div className="hero-bottom">
+        <div className="hero-left">
           <p className="hero-tagline">Protein. Caffeine. Flavour. All in one can.</p>
-          
           <a href="#story" className="hero-cta">
-            EXPLORE THE FLAVOURS
+            Explore the flavours
+            <span className="hero-cta-arrow" aria-hidden="true">&rarr;</span>
           </a>
-          
-          <div className="hero-specs">
-            <span>250 ML</span>
-            <span className="hero-divider">|</span>
-            <span>ZERO ADDED SUGAR</span>
-          </div>
+        </div>
+
+        <div className="hero-specs">
+          <span className="hero-pill">250 ml</span>
+          <span className="hero-pill">Zero added sugar</span>
         </div>
       </div>
     </section>

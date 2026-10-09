@@ -13,6 +13,8 @@ const classicVideo = '/Beverage_can_product_commercial_20261005105933.mp4'
 // Sirf colour frame chahiye to false kar do.
 const SHOW_VIDEO = true
 
+const CTA_LABEL = 'Discover the flavour'
+
 const flavours = [
   {
     id: 'mango',
@@ -55,12 +57,14 @@ const flavours = [
   },
 ]
 
-// Stats cards (nutritional info per 250ml can)
+// What's inside: 5 markers (values are per 250 ml can)
+// value + decimals = counting number | display = number ki jagah chhota text
 const stats = [
-  { value: 2.4, suffix: 'g', label: 'Protein', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: flavours[0].bg },
-  { value: 75, suffix: 'mg', label: 'Caffeine', text: 'Just the right kick to power through your day.', bg: flavours[2].bg },
-  { value: 0, suffix: '', label: 'Added Sugar', text: 'Zero added sugar. All the flavour, none of the nonsense.', bg: flavours[1].bg },
-  { value: 100, suffix: '%', label: 'Energy', text: 'Protein + Energy in one can. Built for your everyday hustle.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
+  { value: 2.4, decimals: 1, suffix: 'g', label: 'Protein', mark: '2.4g', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: flavours[0].bg },
+  { value: 75, suffix: 'mg', label: 'Caffeine', mark: '75mg', text: 'Just the right kick to power through your day.', bg: flavours[2].bg },
+  { display: 'Prebiotic', label: 'Fibre', mark: 'Prebiotic', text: 'Prebiotic fibre in every can, built into the flavour.', bg: flavours[1].bg },
+  { display: 'B2 B3 B6 B12', label: 'Vitamins', mark: 'B2 B3 B6 B12', text: 'A blend of B vitamins to keep up with your everyday hustle.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
+  { value: 0, suffix: 'g', label: 'Added Sugar', mark: 'Zero', text: 'Zero added sugar. All the flavour, none of the nonsense.', bg: 'linear-gradient(135deg, #2E2E2E 0%, #0F0F0F 100%)' },
 ]
 
 const N = flavours.length
@@ -86,6 +90,31 @@ const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) 
 const easeOut = (x) => 1 - Math.pow(1 - x, 3)
 const num = (v, d = 3) => Number(v.toFixed(d))
 
+// section andar aate hi true ho jaata hai (reveal animations ke liye)
+function useInView(threshold = 0.25) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setInView(true)
+          io.disconnect()
+        }
+      },
+      { threshold }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [threshold])
+  return [ref, inView]
+}
+
+/* ============================================
+   03 / WHAT'S INSIDE
+   ============================================ */
 function StatsStack() {
   const trackRef = useRef(null)
   const [s, setS] = useState(-1)
@@ -118,6 +147,10 @@ function StatsStack() {
     i === 0 ? 1 : clamp((s - (i - 1) * STAT_SEG) / STAT_ENTER)
   )
 
+  // abhi kaun sa card upar hai (left list highlight ke liye)
+  let act = 0
+  for (let i = 1; i < stats.length; i++) if (ks[i] >= 0.5) act = i
+
   return (
     <section
       className="fl-stats"
@@ -127,13 +160,36 @@ function StatsStack() {
     >
       <div className="fl-stats-stage">
         <div className="fl-stats-inner">
-          <div>
-            <h2 className="fl-stats-title">
-              ALL THE GOOD STUFF. <em>NONE OF THE NONSENSE.</em>
-            </h2>
-            <p className="fl-stats-copy">
-              Built for flavour. Made for your everyday hustle.
-            </p>
+          <div className="fl-stats-left">
+            <div>
+              <p className="fl-kicker">What&apos;s inside</p>
+              <h2 className="fl-stats-title">
+                ALL THE GOOD STUFF NONE OF THE  <em>NONSENSE</em>
+              </h2>
+              <p className="fl-stats-copy">
+                Built for flavour. Made for your everyday hustle.
+              </p>
+            </div>
+
+            <div>
+              <ul className="fl-stats-list">
+                {stats.map((st, i) => (
+                  <li
+                    key={st.label}
+                    className={`fl-stats-item ${i === act ? 'is-on' : ''}`}
+                    style={{ '--p': ks[i] }}
+                  >
+                    <span className="fl-stats-idx">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="fl-stats-name">{st.label}</span>
+                    <span className="fl-stats-val">{st.mark}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="fl-stats-foot">
+                One can. Multiple reasons to crack it open.
+                <small>Values are per 250 ml can.</small>
+              </p>
+            </div>
           </div>
 
           <div className="fl-stack">
@@ -151,7 +207,8 @@ function StatsStack() {
 
               // number count: card aate waqt ginta hai
               const cnt = i === 0 ? clamp((s + 0.5) / 0.5) : k
-              const val = Math.round(st.value * easeOut(cnt))
+              const isWord = st.display !== undefined
+              const val = isWord ? st.display : (st.value * easeOut(cnt)).toFixed(st.decimals || 0)
 
               return (
                 <div
@@ -163,9 +220,9 @@ function StatsStack() {
                     transform: `translateY(calc(${num(enterY, 2)}vh - ${num(lift, 1)}px)) scale(${num(sc, 4)}) rotate(${num(rot, 2)}deg)`,
                   }}
                 >
-                  <div className="fl-stat-num">
+                  <div className={`fl-stat-num ${isWord ? 'is-word' : ''}`}>
                     {val}
-                    <small>{st.suffix}</small>
+                    {!isWord && <small>{st.suffix}</small>}
                   </div>
                   <div>
                     <p className="fl-stat-label">{st.label}</p>
@@ -181,6 +238,220 @@ function StatsStack() {
   )
 }
 
+/* ============================================
+   04 / OUR STORY — "CHAOS -> ORDER"
+   Words pehle bikhre aur tilted hote hain. Scroll karte hi apni jagah
+   aate hain, seedhe hote hain, marker se highlight hote hain, aur end me
+   "NO NONSENSE" stamp slam hota hai.
+   ============================================ */
+
+// deterministic random (re-render me same rahe)
+const rnd = (i, salt) => {
+  const x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453
+  return x - Math.floor(x)
+}
+
+const DRIPS = [
+  { x: 4, w: 26, h: 70, c: 0 }, { x: 11, w: 18, h: 40, c: 2 }, { x: 19, w: 30, h: 110, c: 1 },
+  { x: 28, w: 20, h: 55, c: 0 }, { x: 37, w: 28, h: 90, c: 2 }, { x: 46, w: 18, h: 45, c: 1 },
+  { x: 55, w: 30, h: 120, c: 0 }, { x: 64, w: 20, h: 60, c: 1 }, { x: 73, w: 28, h: 85, c: 2 },
+  { x: 82, w: 18, h: 50, c: 0 }, { x: 90, w: 30, h: 105, c: 1 }, { x: 97, w: 20, h: 60, c: 2 },
+]
+const DRIP_COLORS = ['#FFB84D', '#8B3A1E', '#4169E1']
+
+// hl = marker highlight colour (mango / cola / berry)
+const STORY_TEXT = [
+  { t: "We didn't come here to make another ordinary drink." },
+  { t: 'We came to' },
+  { t: 'shake things up.', hl: 'mango' },
+  { t: 'Unexpected flavours.', hl: 'cola' },
+  { t: 'Unapologetic attitude.', hl: 'berry' },
+  { t: 'A little madness in every can.' },
+]
+
+const STORY_WORDS = STORY_TEXT.flatMap((seg) =>
+  seg.t.split(' ').map((w) => ({ w, hl: seg.hl }))
+).map((o, i) => ({
+  ...o,
+  // bikhra hua starting position (vw / vh) + tilt
+  dx: (rnd(i, 1) - 0.5) * 90,
+  dy: (rnd(i, 2) - 0.5) * 80,
+  rot: (rnd(i, 3) - 0.5) * 70,
+  sc: 0.7 + rnd(i, 4) * 1.1,
+}))
+
+const SHAPES = [
+  { c: '#FFB84D', s: 120, x: 8, y: 22, sp: -160, r: 50 },
+  { c: '#4169E1', s: 90, x: 86, y: 18, sp: 120, r: 12 },
+  { c: '#DC143C', s: 150, x: 78, y: 70, sp: -200, r: 50 },
+  { c: '#FFB84D', s: 60, x: 20, y: 78, sp: 140, r: 8 },
+  { c: '#4169E1', s: 130, x: 44, y: 88, sp: -120, r: 50 },
+  { c: '#8B3A1E', s: 70, x: 60, y: 10, sp: 180, r: 14 },
+]
+
+const SW = STORY_WORDS.length
+
+function Story() {
+  const [ref, inView] = useInView(0.05)
+  const [p, setP] = useState(0)
+
+  useEffect(() => {
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const el = ref.current
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const total = el.offsetHeight - window.innerHeight
+      const next = Math.round(clamp(-r.top / total) * 500) / 500
+      setP((prev) => (prev === next ? prev : next))
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [ref])
+
+  const SPAN = 7
+  const reveal = clamp(p / 0.7) * (SW + SPAN)
+  const chaos = Math.round((1 - clamp(p / 0.7)) * 100)
+
+  const s = clamp((p - 0.76) / 0.14) // stamp progress
+  const slam = s >= 1
+  const stampScale = 2.6 - 1.6 * easeOut(s)
+  const textDim = 1 - 0.55 * clamp((p - 0.74) / 0.12)
+
+  return (
+    <section className={`st ${inView ? 'is-in' : ''}`} id="our-story" ref={ref}>
+      <div className="st-drips" aria-hidden="true">
+        <span className="st-drip-bar" />
+        {DRIPS.map((d, i) => (
+          <span
+            key={i}
+            className="st-drip"
+            style={{
+              left: `${d.x}%`,
+              width: `${d.w}px`,
+              height: `${d.h}px`,
+              background: DRIP_COLORS[d.c],
+              '--dd': `${0.1 + i * 0.07}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="st-stage">
+        {/* floating colour shapes (parallax) */}
+        <div className="st-shapes" aria-hidden="true">
+          {SHAPES.map((sh, i) => (
+            <span
+              key={i}
+              className="st-shape"
+              style={{
+                left: `${sh.x}%`,
+                top: `${sh.y}%`,
+                width: sh.s,
+                height: sh.s,
+                background: sh.c,
+                borderRadius: `${sh.r}%`,
+                transform: `translateY(${num(p * sh.sp, 1)}px) rotate(${num(p * sh.sp * 0.4, 1)}deg)`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="st-grain" aria-hidden="true" />
+
+        {/* chaos meter */}
+        <div className="st-meter" aria-hidden="true">
+          <span className="st-meter-label">Chaos level</span>
+          <span className="st-meter-val">{String(chaos).padStart(2, '0')}%</span>
+          <span className="st-meter-bar">
+            <i style={{ transform: `scaleX(${num(chaos / 100, 3)})` }} />
+          </span>
+        </div>
+
+        <div className="st-inner">
+          <p className="st-kicker">Our story</p>
+
+          <h2 className="st-text" style={{ opacity: num(textDim, 3) }}>
+            {STORY_WORDS.map((o, i) => {
+              const k = easeOut(clamp((reveal - i) / SPAN))
+              const inv = 1 - k
+              return (
+                <span
+                  key={i}
+                  className={`st-w ${o.hl ? `hl-${o.hl}` : ''}`}
+                  style={{
+                    opacity: num(0.12 + 0.88 * k, 3),
+                    transform: `translate(${num(o.dx * inv, 2)}vw, ${num(o.dy * inv, 2)}vh) rotate(${num(o.rot * inv, 2)}deg) scale(${num(1 + (o.sc - 1) * inv, 3)})`,
+                    '--k': num(k, 3),
+                  }}
+                >
+                  {o.w}
+                  {'\u00A0'}
+                </span>
+              )
+            })}
+          </h2>
+        </div>
+
+        {/* stamp */}
+        <div
+          className={`st-stamp-wrap ${slam ? 'is-slam' : ''}`}
+          style={{ opacity: num(clamp(s * 3), 3) }}
+        >
+          <div className="st-stamp" style={{ transform: `rotate(-5deg) scale(${num(stampScale, 3)})` }}>
+            <span className="st-stamp-a">NO LIMITS.</span>
+            <span className="st-stamp-b">NO NONSENSE.</span>
+          </div>
+          <span className="st-ring" aria-hidden="true" />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================
+   05 / FINAL CALL TO ACTION
+   ============================================ */
+function FinalCTA() {
+  const [ref, inView] = useInView(0.25)
+  return (
+    <section className={`fl-final ${inView ? 'is-in' : ''}`} id="final" ref={ref}>
+      <div className="fl-final-inner">
+        <p className="fl-kicker">05 / Ready?</p>
+        <h2 className="fl-final-title">
+          READY FOR SOME NONSENSE?
+        </h2>
+        <p className="fl-final-sub">Three flavours. One wild experience.</p>
+
+        {/* teeno cans ek saath */}
+        <div className="fl-final-cans">
+          <img src={flavours[0].img} alt={flavours[0].alt} className="fl-fc fl-fc-1" />
+          <img src={flavours[1].img} alt={flavours[1].alt} className="fl-fc fl-fc-2" />
+          <img src={flavours[2].img} alt={flavours[2].alt} className="fl-fc fl-fc-3" />
+        </div>
+
+        <p className="fl-final-pick">PICK YOUR CHAOS</p>
+        <a href="#story" className="fl-final-btn">
+          EXPLORE NO NONSENSE
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================
+   02 / THE FLAVOURS
+   ============================================ */
 function OurFlavours() {
   const trackRef = useRef(null)
   const videoRefs = useRef([])
@@ -263,11 +534,12 @@ function OurFlavours() {
       >
         <div className="fl-stage" data-phase={phaseB ? 'B' : 'A'}>
           {/* ---------- Headline ---------- */}
-          <div className="fl-head"
+          <div
+            className="fl-head"
             style={{ opacity: headOpacity, transform: `translateY(${num(-t * 30, 1)}px)` }}
           >
             <h2 className="fl-headline">
-              <span>Three Bold Flavours.</span> <em>One Wild Experience.</em>
+               <span>THE FLAVOURS</span>
             </h2>
           </div>
 
@@ -335,6 +607,10 @@ function OurFlavours() {
                       <span key={tg} className="fl-tag">{tg}</span>
                     ))}
                   </div>
+                  <a href="#stats" className="fl-cta">
+                    {CTA_LABEL}
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
                 </div>
 
                 {/* drink ke aas paas 2 arrows (sirf desktop) */}
@@ -385,6 +661,8 @@ function OurFlavours() {
                   zIndex: i === active ? 4 : 3,
                 }}
               >
+                {/* shadow can ke PEECHE (pehle render) taaki can ke upar na aaye */}
+                <span className="fl-shadow" />
                 <div className="fl-float">
                   <div
                     className="fl-sway"
@@ -393,7 +671,6 @@ function OurFlavours() {
                     <img src={f.img} alt={f.alt} className={`fl-img ${imgState}`} />
                   </div>
                 </div>
-                <span className="fl-shadow" />
               </div>
             )
           })}
@@ -401,8 +678,14 @@ function OurFlavours() {
         </div>
       </section>
 
-      {/* ---------- Stats (sticky card stack) ---------- */}
+      {/* ---------- 03 What's inside (sticky card stack) ---------- */}
       <StatsStack />
+
+      {/* ---------- 04 Our story ---------- */}
+      <Story />
+
+      {/* ---------- 05 Final CTA ---------- */}
+      <FinalCTA />
     </>
   )
 }
