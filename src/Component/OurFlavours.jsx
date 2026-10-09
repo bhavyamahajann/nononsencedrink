@@ -430,7 +430,7 @@ function FinalCTA() {
         <h2 className="fl-final-title">
           READY FOR SOME NONSENSE?
         </h2>
-        <p className="fl-final-sub">Three flavours. One wild experience.</p>
+        <p className="fl-final-sub">Three flavours One wild experience </p>
 
         {/* teeno cans ek saath */}
         <div className="fl-final-cans">
