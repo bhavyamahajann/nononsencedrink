@@ -14,14 +14,56 @@
   filter: drop-shadow(0 0 20px rgba(196, 30, 30, 0.6));
 }
 
-.footer-content p {
+.footer-brand {
   color: var(--cream);
-  font-size: 0.95rem;
-  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: 1.5rem 0;
 }
 
-.footer-tagline {
-  font-weight: 700;
-  letter-spacing: 2px;
+.footer-warning {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-warning-title {
   color: var(--red);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
+}
+
+.footer-warning-text {
+  color: var(--cream);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.footer-copyright {
+  color: var(--cream);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .footer-warning {
+    padding: 1rem;
+  }
+  
+  .footer-brand {
+    font-size: 0.95rem;
+  }
+  
+  .footer-warning-text {
+    font-size: 0.8rem;
+  }
 }

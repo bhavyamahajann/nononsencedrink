@@ -18,11 +18,11 @@ const flavours = [
     id: 'mango',
     img: mangoDrink,
     alt: 'Mango Mayhem',
-    title: 'Mango Mayhem',
-    subtitle: 'Tropical Energy',
-    text: 'Bright mango flavour with a caffeinated protein kick. Cold, loud and zero sugar.',
+    title: 'MANGO MAYHEM',
+    subtitle: 'A LITTLE TROPICAL. A LOT OF TROUBLE.',
+    text: 'A bold mango-flavoured caffeinated protein drink with a tropical twist.',
     tags: ['Zero Sugar', 'Dietary Fiber', '250 ml'],
-    notes: ['zero sugar', 'ice cold'],
+    notes: ['tropical twist', 'bold flavour'],
     scale: 1,
     video: mangoVideo,
     bg: 'linear-gradient(135deg, #FFB84D 0%, #FF8C42 100%)',
@@ -31,36 +31,36 @@ const flavours = [
     id: 'coffee',
     img: coffeeCola,
     alt: 'Coffee Cola',
-    title: 'Coffee Cola',
-    subtitle: 'Double Kick Energy',
-    text: 'Coffee and cola in one can. Double the kick, none of the sugar.',
+    title: 'COFFEE COLA',
+    subtitle: 'COFFEE MEETS COLA. CHAOS FOLLOWS.',
+    text: 'The bold character of coffee with a fizzy cola-inspired twist.',
     tags: ['Zero Sugar', 'Dietary Fiber', '250 ml'],
-    notes: ['double kick', 'no sugar'],
+    notes: ['coffee + cola', 'chaos follows'],
     scale: 1.02,
-    video: coffeeVideo, // ulta ho to coffeeVideo aur classicVideo swap kar do
+    video: coffeeVideo,
     bg: 'linear-gradient(135deg, #DC143C 0%, #8B0000 100%)',
   },
   {
     id: 'classic',
     img: classicWild,
     alt: 'Classic Wild Berry',
-    title: 'Classic Wild Berry',
-    subtitle: 'Untamed Power',
-    text: 'Wild berry taste that hits hard and finishes clean. Pure classic, zero sugar.',
+    title: 'CLASSIC WILD BERRY',
+    subtitle: 'BERRY BOLD. NEVER BASIC.',
+    text: 'A vibrant wild berry flavour that brings a refreshing twist to your everyday routine.',
     tags: ['Zero Sugar', 'Dietary Fiber', '250 ml'],
-    notes: ['finishes clean', 'wild berry'],
+    notes: ['never basic', 'wild berry'],
     scale: 1.03,
     video: classicVideo,
     bg: 'linear-gradient(135deg, #4169E1 0%, #0047AB 100%)',
   },
 ]
 
-// Stats cards (yahan apne asli numbers / text daal do)
+// Stats cards (nutritional info per 250ml can)
 const stats = [
-  { value: 15, suffix: 'g', label: 'Protein', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: flavours[0].bg },
-  { value: 3, suffix: '', label: 'Bold flavours', text: 'Mango, coffee cola and wild berry, each built to hit hard.', bg: flavours[2].bg },
-  { value: 250, suffix: 'ml', label: 'Per can', text: 'Cold, loud and exactly the right size for one go.', bg: flavours[1].bg },
-  { value: 100, suffix: '%', label: 'Protein + Energy', text: 'The perfect mix of protein power and energy boost in one can.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
+  { value: 2.4, suffix: 'g', label: 'Protein', text: 'Pure protein in every can. Fuel your muscles while you stay energized.', bg: flavours[0].bg },
+  { value: 75, suffix: 'mg', label: 'Caffeine', text: 'Just the right kick to power through your day.', bg: flavours[2].bg },
+  { value: 0, suffix: '', label: 'Added Sugar', text: 'Zero added sugar. All the flavour, none of the nonsense.', bg: flavours[1].bg },
+  { value: 100, suffix: '%', label: 'Energy', text: 'Protein + Energy in one can. Built for your everyday hustle.', bg: 'linear-gradient(135deg, #6B1A1A 0%, #4B1111 100%)' },
 ]
 
 const N = flavours.length
@@ -129,10 +129,10 @@ function StatsStack() {
         <div className="fl-stats-inner">
           <div>
             <h2 className="fl-stats-title">
-              What goes into <em>every can</em>
+              ALL THE GOOD STUFF. <em>NONE OF THE NONSENSE.</em>
             </h2>
             <p className="fl-stats-copy">
-              The perfect blend of protein and energy. Here is what makes us different.
+              Built for flavour. Made for your everyday hustle.
             </p>
           </div>
 
@@ -263,12 +263,11 @@ function OurFlavours() {
       >
         <div className="fl-stage" data-phase={phaseB ? 'B' : 'A'}>
           {/* ---------- Headline ---------- */}
-          <div
-            className="fl-head"
+          <div className="fl-head"
             style={{ opacity: headOpacity, transform: `translateY(${num(-t * 30, 1)}px)` }}
           >
             <h2 className="fl-headline">
-              <span>Three Flavours</span> <em>One Perfect Kick</em>
+              <span>Three Bold Flavours.</span> <em>One Wild Experience.</em>
             </h2>
           </div>
 
