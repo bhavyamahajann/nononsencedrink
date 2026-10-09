@@ -426,7 +426,7 @@ function FinalCTA() {
   return (
     <section className={`fl-final ${inView ? 'is-in' : ''}`} id="final" ref={ref}>
       <div className="fl-final-inner">
-        <p className="fl-kicker">05 / Ready?</p>
+        <p className="fl-kicker"> Ready?</p>
         <h2 className="fl-final-title">
           READY FOR SOME NONSENSE?
         </h2>
